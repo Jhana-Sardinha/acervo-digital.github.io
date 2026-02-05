@@ -8,8 +8,18 @@ const EBOOKS_DATA = [
         capa: "assets/img/JavaScript_Sem_Trauma_Cover.png", 
         rotation: -3, 
         link: "https://seulink.com",
-        descricao: "JavaScript Sem Trauma é um e-book feito para quem já tentou aprender JavaScript, mas se sentiu perdido, inseguro ou travou no meio do caminho.\n\nAqui você aprende o essencial do JavaScript com exemplos simples, explicações claras e projetos reais — sem linguagem acadêmica e sem promessas milagrosas.\n\nO objetivo não é te transformar em “gênio da programação”, mas te ajudar a entender JavaScript de verdade e dar seus primeiros passos como desenvolvedor front-end.",
-        preview: "Você Não Está Sozinho Nessa <br><br> Se você está aqui, provavelmente já... Respira fundo: isso é normal. <br><br> → Tentou aprender JavaScript e travou <br><br> → Se sentiu "burro" vendo outros entenderem rápido <br><br> → Abandonou cursos no meio por frustração <br><br> → Se perguntou se programação é realmente pra você <br><br> JavaScript assusta muita gente no começo. Não porque seja impossível, mas porque a maioria dos cur.."
+        descricao: `JavaScript Sem Trauma é um e-book feito para quem já tentou aprender JavaScript, mas se sentiu perdido, inseguro ou travou no meio do caminho.
+
+Aqui você aprende o essencial do JavaScript com exemplos simples, explicações claras e projetos reais — sem linguagem acadêmica e sem promessas milagrosas.
+
+O objetivo não é te transformar em "gênio da programação", mas te ajudar a entender JavaScript de verdade e dar seus primeiros passos como desenvolvedor front-end.`,
+        preview: `<strong>Você Não Está Sozinho Nessa</strong> <br><br> 
+        Se você está aqui, provavelmente já... Respira fundo: isso é normal. <br><br> 
+        → Tentou aprender JavaScript e travou <br><br> 
+        → Se sentiu "burro" vendo outros entenderem rápido <br><br> 
+        → Abandonou cursos no meio por frustração <br><br> 
+        → Se perguntou se programação é realmente pra você <br><br> 
+        JavaScript assusta muita gente no começo. Não porque seja impossível, mas porque a maioria dos cursos foca na teoria chata antes da prática real.`
     },
     { 
         id: 2, 
@@ -31,7 +41,7 @@ const POSTS_DATA = [
         data: "05 Fev, 2026",
         titulo: "Do TCC GoLand ao Growth Design",
         resumo: "Como a experiência de criar uma plataforma de landing pages moldou meu critério visual.",
-        conteudo: "Escrever 90% do código do GoLand me ensinou que design sem técnica é apenas desenho, e técnica sem design é apenas ferramenta...",
+        conteudo: "Escrever 90% do código do GoLand me ensinou que design sem técnica é apenas desenho, e técnica sem design é apenas ferramenta. Integrar Django com um senso estético apurado me deu a base para o que hoje aplico em Growth...",
         rotation: 1
     }
 ];
