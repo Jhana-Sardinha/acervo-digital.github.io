@@ -39,19 +39,23 @@
         </div>
     </section>
 
-    <!-- MODAL (O que não estava funcionando agora está aqui) -->
-    <div x-show="selectedBook" class="fixed inset-0 bg-black/90 z-[200] flex items-center justify-center p-6" x-transition>
-        <div class="bg-[#e8e2d6] p-8 max-w-4xl w-full torn-paper relative grid md:grid-cols-2 gap-8 max-h-[90vh] overflow-y-auto" @click.away="selectedBook = null">
-            <button @click="selectedBook = null" class="absolute top-4 right-4 text-3xl">&times;</button>
-            <img :src="selectedBook?.capa" class="w-full shadow-xl border-8 border-white">
-            <div class="flex flex-col">
-                <h2 class="serif text-3xl mb-4" x-text="selectedBook?.titulo"></h2>
-                <p class="typewriter text-sm mb-6 pb-6 border-b border-dashed border-gray-400" x-text="selectedBook?.descricao"></p>
-                <div class="bg-white/50 p-4 torn-paper mb-6">
-                    <h4 class="typewriter text-[10px] font-bold mb-2 uppercase text-[#4da1a9]">Degustação:</h4>
-                    <div class="serif text-sm italic italic leading-relaxed" x-html="selectedBook?.preview"></div>
+    <!-- Modal Responsivo -->
+    <div x-show="selectedBook" class="fixed inset-0 bg-black/95 z-[200] flex items-center justify-center p-2 md:p-6" x-transition>
+        <div class="bg-[#e8e2d6] p-4 md:p-10 w-full max-w-5xl h-full md:h-auto md:max-h-[90vh] overflow-y-auto torn-paper relative" @click.away="selectedBook = null">
+            <button @click="selectedBook = null" class="absolute top-2 right-4 text-4xl">&times;</button>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
+                <img :src="selectedBook?.capa" class="w-full shadow-xl border-4 md:border-8 border-white sticky top-0">
+                
+                <div class="flex flex-col">
+                    <h2 class="serif text-2xl md:text-4xl mb-4" x-text="selectedBook?.titulo"></h2>
+                    <p class="typewriter text-xs md:text-sm mb-6 pb-6 border-b border-dashed border-gray-400" x-text="selectedBook?.descricao"></p>
+                    <div class="bg-white/50 p-4 torn-paper mb-6">
+                        <h4 class="typewriter text-[10px] font-bold mb-2 uppercase text-[#4da1a9]">Degustação:</h4>
+                        <div class="serif text-sm italic leading-relaxed" x-html="selectedBook?.preview"></div>
+                    </div>
+                    <a :href="selectedBook?.link" class="bg-black text-white py-4 text-center font-bold hover:bg-[#4da1a9] mt-auto">COMPRAR AGORA</a>
                 </div>
-                <a :href="selectedBook?.link" class="bg-black text-white py-4 text-center font-bold hover:bg-[#4da1a9]">COMPRAR AGORA</a>
             </div>
         </div>
     </div>
