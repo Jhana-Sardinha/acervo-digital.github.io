@@ -6,7 +6,9 @@ const EBOOKS_DATA = [
         preco: "R$ 47,90", 
         capa: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000", 
         rotation: -3, 
-        link: "#" 
+        link: "https://seulink.com",
+        descricao: "O mapa completo para quem quer dominar Next.js e IA em 2026. Saia do básico e aprenda a construir produtos reais.",
+        preview: "Capítulo 1: O Código Vivo. <br><br> Em 2026, programar não é mais sobre sintaxe, é sobre diálogo com a máquina..."
     },
     { 
         id: 2, 
@@ -15,7 +17,8 @@ const EBOOKS_DATA = [
         preco: "R$ 29,90", 
         capa: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?q=80&w=1000", 
         rotation: 2, 
-        link: "#" 
+        link: "https://seulink.com",
+        descricao: "Como hackear sua carreira e não depender de caminhos tradicionais. Um guia para quem quer liberdade.",
+        preview: "Capítulo 1: O Grande Erro. <br><br> Nos ensinaram que o diploma era o fim, mas ele era apenas a primeira amarra..."
     }
-    // O ADMIN VAI GERAR NOVOS BLOCOS PARA COLAR AQUI
 ];
