@@ -2,55 +2,162 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Painel da Escritora | Jhana</title>
+    <title>Gerenciador Pro | Jhana</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="database.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
-        body { background: #f3f4f6; font-family: monospace; }
-        .tab-active { border-bottom: 4px solid #4da1a9; color: #4da1a9; }
+        body { background: #f0f2f5; font-family: 'Courier New', Courier, monospace; }
+        .card { background: white; border: 2px solid #000; box-shadow: 8px 8px 0px #000; }
     </style>
 </head>
-<body x-data="{ tab: 'vitrine', result: '', 
-    book: { titulo: '', preco: '', categoria: 'Tecnologia', capa: '', link: '', descricao: '', preview: '' },
-    post: { titulo: '', data: '', resumo: '', conteudo: '' } 
-}">
-    <div class="max-w-3xl mx-auto my-10 bg-white p-10 shadow-2xl border-t-8 border-black">
-        <h1 class="text-3xl font-bold mb-8 uppercase italic">Central de Comando</h1>
-        
-        <!-- ABAS -->
-        <div class="flex space-x-8 mb-10 border-b">
-            <button @click="tab = 'vitrine'; result = ''" :class="tab === 'vitrine' ? 'tab-active' : ''" class="pb-2 font-bold">VITRINE</button>
-            <button @click="tab = 'diario'; result = ''" :class="tab === 'diario' ? 'tab-active' : ''" class="pb-2 font-bold">DIÁRIO</button>
-        </div>
+<body x-data="adminPanel()" class="p-4 md:p-10">
 
-        <!-- FORM VITRINE -->
-        <div x-show="tab === 'vitrine'" class="space-y-4">
-            <input x-model="book.titulo" placeholder="Título do E-book" class="w-full border p-3">
-            <div class="grid grid-cols-2 gap-4">
-                <input x-model="book.preco" placeholder="Preço (Ex: R$ 47,00)" class="border p-3">
-                <input x-model="book.capa" placeholder="URL da Imagem da Capa" class="border p-3">
+    <div class="max-w-5xl mx-auto">
+        <h1 class="text-4xl font-black mb-10 border-b-4 border-black pb-2">CONTROLE DE ARQUIVOS v2.0</h1>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            
+            <!-- COLUNA DE FORMULÁRIO -->
+            <div class="md:col-span-1 space-y-6">
+                <div class="card p-6">
+                    <h2 class="font-bold mb-4 uppercase bg-black text-white px-2 inline-block">Editor</h2>
+                    <div class="space-y-3 text-sm">
+                        <select x-model="type" class="w-full border-2 border-black p-2">
+                            <option value="ebook">E-book</option>
+                            <option value="post">Post do Diário</option>
+                        </select>
+                        <input x-model="form.titulo" placeholder="Título" class="w-full border-2 border-black p-2">
+                        <input x-model="form.extra1" :placeholder="type === 'ebook' ? 'Preço' : 'Data'" class="w-full border-2 border-black p-2">
+                        <input x-model="form.extra2" :placeholder="type === 'ebook' ? 'Caminho da Imagem' : 'Resumo'" class="w-full border-2 border-black p-2">
+                        <textarea x-model="form.extra3" :placeholder="type === 'ebook' ? 'Descrição' : 'Conteúdo'" class="w-full border-2 border-black p-2 h-32"></textarea>
+                        
+                        <div class="flex gap-2">
+                            <button @click="saveItem()" class="bg-green-500 text-white font-bold p-2 flex-1 border-2 border-black">SALVAR</button>
+                            <button @click="resetForm()" class="bg-gray-200 p-2 border-2 border-black">LIMPAR</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-6 bg-yellow-100">
+                    <h2 class="font-bold mb-2 uppercase">Como Salvar?</h2>
+                    <p class="text-[10px] leading-tight">1. Edite ou adicione itens.<br>2. Clique em 'GERAR CÓDIGO FINAL'.<br>3. Copie TUDO e cole no seu database.js no GitHub.</p>
+                </div>
             </div>
-            <textarea x-model="book.descricao" placeholder="Descrição Curta" class="w-full border p-3 h-20"></textarea>
-            <textarea x-model="book.preview" placeholder="Degustação (Capítulo 1)" class="w-full border p-3 h-32"></textarea>
-            <button @click="const id = Date.now(); const rotation = Math.floor(Math.random() * 8) - 4; result = JSON.stringify({id, ...book, rotation}, null, 4) + ','" 
-                    class="bg-black text-white w-full py-4 font-bold hover:bg-[#4da1a9]">GERAR CÓDIGO DO E-BOOK</button>
-        </div>
 
-        <!-- FORM DIÁRIO -->
-        <div x-show="tab === 'diario'" class="space-y-4">
-            <input x-model="post.titulo" placeholder="Título do Post" class="w-full border p-3">
-            <input x-model="post.data" placeholder="Data (Ex: 05 Fev, 2026)" class="w-full border p-3">
-            <textarea x-model="post.resumo" placeholder="Resumo que aparece na lista" class="w-full border p-3 h-20"></textarea>
-            <textarea x-model="post.conteudo" placeholder="Conteúdo completo do post" class="w-full border p-3 h-48"></textarea>
-            <button @click="const id = Date.now(); const rotation = Math.floor(Math.random() * 4) - 2; result = JSON.stringify({id, ...post, rotation}, null, 4) + ','" 
-                    class="bg-black text-white w-full py-4 font-bold hover:bg-[#4da1a9]">GERAR CÓDIGO DO POST</button>
-        </div>
+            <!-- COLUNA DE GERENCIAMENTO -->
+            <div class="md:col-span-2 space-y-6">
+                <div class="card p-6 min-h-[400px]">
+                    <h2 class="font-bold mb-4 uppercase underline">Itens Publicados</h2>
+                    
+                    <div class="space-y-8">
+                        <!-- LISTA EBOOKS -->
+                        <div>
+                            <h3 class="text-xs font-black text-blue-600 mb-2">E-BOOKS</h3>
+                            <div class="grid grid-cols-1 gap-2">
+                                <template x-for="(b, index) in localEbooks" :key="index">
+                                    <div class="flex justify-between items-center border-b border-gray-200 pb-1 text-xs">
+                                        <span x-text="b.titulo" class="truncate font-bold"></span>
+                                        <div class="flex gap-2">
+                                            <button @click="editEbook(index)" class="text-blue-500 hover:underline">EDITAR</button>
+                                            <button @click="removeEbook(index)" class="text-red-500 hover:underline">APAGAR</button>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
 
-        <!-- RESULTADO -->
-        <div x-show="result" class="mt-10 p-6 bg-gray-100 border-l-4 border-red-500">
-            <p class="text-xs font-bold text-red-500 mb-2 uppercase">Copie e cole no database.js:</p>
-            <textarea x-text="result" class="w-full h-40 text-[10px] bg-white p-2 border" readonly></textarea>
+                        <!-- LISTA POSTS -->
+                        <div>
+                            <h3 class="text-xs font-black text-green-600 mb-2">DIÁRIO</h3>
+                            <div class="grid grid-cols-1 gap-2">
+                                <template x-for="(p, index) in localPosts" :key="index">
+                                    <div class="flex justify-between items-center border-b border-gray-200 pb-1 text-xs">
+                                        <span x-text="p.titulo" class="truncate font-bold"></span>
+                                        <div class="flex gap-2">
+                                            <button @click="editPost(index)" class="text-blue-500 hover:underline">EDITAR</button>
+                                            <button @click="removePost(index)" class="text-red-500 hover:underline">APAGAR</button>
+                                        </div>
+                                    </div>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button @click="generateFullCode()" class="mt-10 w-full bg-black text-white p-4 font-black text-lg hover:bg-red-600 transition shadow-[4px_4px_0px_#4da1a9]">
+                        GERAR CÓDIGO FINAL PARA O DATABASE.JS
+                    </button>
+                </div>
+
+                <div x-show="finalCode" class="card p-6 bg-black text-green-400">
+                    <h2 class="font-bold mb-2 uppercase text-white">Código para substituir no GitHub:</h2>
+                    <textarea x-text="finalCode" class="w-full h-64 bg-gray-900 p-4 text-[10px] border-none outline-none" readonly></textarea>
+                </div>
+            </div>
+
         </div>
     </div>
+
+    <script>
+        function adminPanel() {
+            return {
+                type: 'ebook',
+                localEbooks: [...EBOOKS_DATA],
+                localPosts: [...POSTS_DATA],
+                editingIndex: null,
+                finalCode: '',
+                form: { titulo: '', extra1: '', extra2: '', extra3: '' },
+
+                resetForm() {
+                    this.form = { titulo: '', extra1: '', extra2: '', extra3: '' };
+                    this.editingIndex = null;
+                },
+
+                editEbook(index) {
+                    this.type = 'ebook';
+                    this.editingIndex = index;
+                    let item = this.localEbooks[index];
+                    this.form = { titulo: item.titulo, extra1: item.preco, extra2: item.capa, extra3: item.descricao };
+                },
+
+                editPost(index) {
+                    this.type = 'diario';
+                    this.editingIndex = index;
+                    let item = this.localPosts[index];
+                    this.form = { titulo: item.titulo, extra1: item.data, extra2: item.resumo, extra3: item.conteudo };
+                },
+
+                saveItem() {
+                    if(this.type === 'ebook') {
+                        let obj = { 
+                            id: this.editingIndex !== null ? this.localEbooks[this.editingIndex].id : Date.now(),
+                            titulo: this.form.titulo, preco: this.form.extra1, capa: this.form.extra2, 
+                            descricao: this.form.extra3, rotation: Math.floor(Math.random() * 8) - 4, link: "#"
+                        };
+                        if(this.editingIndex !== null) this.localEbooks[this.editingIndex] = obj;
+                        else this.localEbooks.push(obj);
+                    } else {
+                        let obj = {
+                            id: this.editingIndex !== null ? this.localPosts[this.editingIndex].id : Date.now(),
+                            titulo: this.form.titulo, data: this.form.extra1, resumo: this.form.extra2,
+                            conteudo: this.form.extra3, rotation: Math.floor(Math.random() * 4) - 2
+                        };
+                        if(this.editingIndex !== null) this.localPosts[this.editingIndex] = obj;
+                        else this.localPosts.push(obj);
+                    }
+                    this.resetForm();
+                },
+
+                removeEbook(index) { this.localEbooks.splice(index, 1); },
+                removePost(index) { this.localPosts.splice(index, 1); },
+
+                generateFullCode() {
+                    let code = "const EBOOKS_DATA = " + JSON.stringify(this.localEbooks, null, 4) + ";\n\n";
+                    code += "const POSTS_DATA = " + JSON.stringify(this.localPosts, null, 4) + ";";
+                    this.finalCode = code;
+                }
+            }
+        }
+    </script>
 </body>
 </html>
