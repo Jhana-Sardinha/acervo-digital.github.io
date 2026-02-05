@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Mural de Obras</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body x-data="{ ebooks: EBOOKS_DATA }">
+    <div class="bg-waves"></div>
+    
+    <!-- Navegação (Repetir em todos) -->
+    <nav class="fixed top-5 right-5 z-[100] flex flex-col space-y-4">
+        <a href="index.html" class="tape px-6 py-2 typewriter text-sm border-l-4 border-[#4da1a9]">HOME</a>
+        <a href="vitrine.html" class="tape px-6 py-2 typewriter text-sm border-l-4 border-gray-400">VITRINE</a>
+        <a href="diario.html" class="tape px-6 py-2 typewriter text-sm border-l-4 border-gray-400">DIÁRIO</a>
+        <a href="sobre.html" class="tape px-6 py-2 typewriter text-sm border-l-4 border-gray-400">SOBRE</a>
+    </nav>
+
+    <section class="p-10 pt-24 max-w-6xl mx-auto">
+        <h2 class="serif text-4xl mb-12 text-center underline">O Mural de Obras</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <template x-for="book in ebooks" :key="book.id">
+                <div class="collage-item bg-white p-4 shadow-lg" :style="`transform: rotate(${book.rotation}deg)`">
+                    <img :src="book.capa" class="w-full h-64 object-cover mb-4">
+                    <p class="typewriter font-bold" x-text="book.titulo"></p>
+                    <a :href="book.link" class="mt-4 block bg-black text-white text-center py-2 text-xs">VER DETALHES</a>
+                </div>
+            </template>
+        </div>
+    </section>
+
+    <script src="database.js"></script>
+</body>
+</html>
