@@ -1,17 +1,21 @@
-/* Configurações Gerais de Zine */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Special+Elite&family=Inter:wght@300;400;600&display=swap');
+
+/* Reset Básico */
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 html, body {
     max-width: 100%;
-    overflow-x: hidden; /* Essencial para não bugar no celular */
+    overflow-x: hidden;
     background-color: #e8e2d6;
     background-image: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
     font-family: 'Inter', sans-serif;
+    color: #1a1a1a;
 }
 
 .serif { font-family: 'Playfair Display', serif; }
 .typewriter { font-family: 'Special Elite', cursive; }
 
+/* Ondas do fundo */
 .bg-waves {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -20,27 +24,11 @@ html, body {
     background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 13 50 13s16.36 2.347 25.96 5.937l1.768.661c.369.138.731.272 1.088.402H100v-2H80.354c-.358-.131-.722-.266-1.09-.404l-1.767-.662C67.898 12.653 61.94 10 50 10s-17.898 2.653-27.497 6.271l-1.767.662c-.368.138-.732.273-1.09.404H0v2h21.184z' fill='%234da1a9' fill-opacity='1' fill-rule='evenodd'%3E%3C/path%3E%3C/svg%3E");
 }
 
-/* Rotações dinâmicas: No celular elas diminuem para não quebrar o layout */
+/* Colagem */
 .collage-item { 
     filter: drop-shadow(5px 5px 10px rgba(0,0,0,0.15));
     transition: transform 0.3s ease;
-}
-
-.torn-paper {
-    clip-path: polygon(0% 2%, 5% 0%, 10% 3%, 15% 1%, 20% 4%, 25% 1%, 30% 5%, 35% 2%, 40% 6%, 45% 2%, 50% 5%, 55% 1%, 60% 4%, 65% 1%, 70% 3%, 75% 0%, 80% 4%, 85% 1%, 90% 5%, 95% 1%, 100% 3%, 100% 97%, 95% 99%, 90% 96%, 85% 99%, 80% 95%, 75% 100%, 70% 96%, 65% 99%, 60% 95%, 55% 100%, 50% 96%, 45% 99%, 40% 94%, 35% 98%, 30% 95%, 25% 99%, 20% 94%, 15% 98%, 10% 95%, 5% 100%, 0% 97%);
-}
-
-.tape {
-    background: rgba(200, 200, 150, 0.3);
-    backdrop-filter: blur(2px);
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.1);
-}
-
-@media (max-width: 768px) {
-    .collage-item { 
-        transform: rotate(0deg) !important; /* Remove rotação no mobile para evitar bugs */
-        margin-bottom: 1.5rem;
-    }
+    background: white;
 }
 
 .torn-paper {
@@ -51,12 +39,16 @@ html, body {
     background: rgba(200, 200, 150, 0.4);
     backdrop-filter: blur(2px);
     box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
 }
 
-.bg-waves {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: -1;
-    opacity: 0.1;
-    background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 13 50 13s16.36 2.347 25.96 5.937l1.768.661c.369.138.731.272 1.088.402H100v-2H80.354c-.358-.131-.722-.266-1.09-.404l-1.767-.662C67.898 12.653 61.94 10 50 10s-17.898 2.653-27.497 6.271l-1.767.662c-.368.138-.732.273-1.09.404H0v2h21.184z' fill='%234da1a9' fill-opacity='1' fill-rule='evenodd'%3E%3C/path%3E%3C/svg%3E");
+/* Responsividade de Rotação */
+@media (min-width: 769px) {
+    .rotate-large { transform: rotate(3deg); }
+    .rotate-small { transform: rotate(-2deg); }
+}
+
+@media (max-width: 768px) {
+    .collage-item { transform: rotate(0deg) !important; margin-bottom: 2rem; }
+    .serif { font-size: 1.8rem; } /* Diminui títulos no celular */
 }
