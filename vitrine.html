@@ -19,17 +19,46 @@
     </nav>
 
     <section class="p-10 pt-24 max-w-6xl mx-auto">
-        <h2 class="serif text-4xl mb-12 text-center underline">O Mural de Obras</h2>
+        <h2 class="serif text-4xl mb-12 text-center underline decoration-[#4da1a9]">O Mural de Obras</h2>
+        
         <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
             <template x-for="book in ebooks" :key="book.id">
-                <div class="collage-item bg-white p-4 shadow-lg" :style="`transform: rotate(${book.rotation}deg)`">
-                    <img :src="book.capa" class="w-full h-64 object-cover mb-4">
+                <div @click="selectedBook = book" class="collage-item bg-white p-4 shadow-lg cursor-pointer group" :style="`transform: rotate(${book.rotation}deg)`">
+                    <div class="overflow-hidden mb-4">
+                        <img :src="book.capa" class="w-full h-64 object-cover grayscale group-hover:grayscale-0 transition-all">
+                    </div>
                     <p class="typewriter font-bold" x-text="book.titulo"></p>
-                    <a :href="book.link" class="mt-4 block bg-black text-white text-center py-2 text-xs">VER DETALHES</a>
+                    <div class="flex justify-between items-center mt-2">
+                        <span class="text-xs bg-black text-white px-2 py-1" x-text="book.preco"></span>
+                        <span class="text-[10px] uppercase underline">Ver Detalhes</span>
+                    </div>
                 </div>
             </template>
         </div>
     </section>
+
+    <!-- MODAL DE DETALHES (A Colagem que abre) -->
+    <div x-show="selectedBook" x-transition class="fixed inset-0 bg-black/90 z-[150] flex items-center justify-center p-6">
+        <div class="bg-[#e8e2d6] p-8 max-w-4xl w-full torn-paper shadow-2xl relative grid md:grid-cols-2 gap-8 max-h-[90vh] overflow-y-auto" @click.away="selectedBook = null">
+            <button @click="selectedBook = null" class="absolute top-4 right-4 text-3xl typewriter">&times;</button>
+            
+            <div>
+                <img :src="selectedBook?.capa" class="w-full shadow-lg border-8 border-white">
+            </div>
+            
+            <div class="flex flex-col">
+                <h2 class="serif text-3xl mb-4" x-text="selectedBook?.titulo"></h2>
+                <p class="typewriter text-sm mb-6 pb-6 border-b border-dashed border-gray-400" x-text="selectedBook?.descricao"></p>
+                
+                <div class="bg-white/50 p-4 torn-paper mb-6">
+                    <h4 class="typewriter text-xs font-bold mb-2 uppercase text-[#4da1a9]">Degustação do Capítulo:</h4>
+                    <div class="serif text-sm italic italic leading-relaxed" x-html="selectedBook?.preview"></div>
+                </div>
+                
+                <a :href="selectedBook?.link" target="_blank" class="bg-black text-white py-4 text-center font-bold hover:bg-[#4da1a9] transition">QUERO ESTA OBRA</a>
+            </div>
+        </div>
+    </div>
 
     <script src="database.js"></script>
 </body>
