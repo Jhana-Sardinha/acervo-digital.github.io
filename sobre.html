@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Arquivo Digital | Sobre</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-waves"></div>
+    
+    <nav class="fixed top-5 right-5 z-[100] flex flex-col space-y-4">
+        <a href="index.html" class="tape px-6 py-2 typewriter text-sm border-l-4 border-gray-400">HOME</a>
+        <a href="vitrine.html" class="tape px-6 py-2 typewriter text-sm border-l-4 border-gray-400">VITRINE</a>
+        <a href="diario.html" class="tape px-6 py-2 typewriter text-sm border-l-4 border-gray-400">DIÁRIO</a>
+        <a href="sobre.html" class="tape px-6 py-2 typewriter text-sm border-l-4 border-[#4da1a9]">SOBRE</a>
+    </nav>
+
+    <main class="min-h-screen p-10 pt-24 flex flex-col items-center">
+        <div class="max-w-4xl w-full grid md:grid-cols-2 gap-12 items-center">
+            
+            <!-- Foto Polaroid -->
+            <div class="collage-item bg-white p-4 pb-16 shadow-2xl rotate-3 border border-gray-200">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1000" class="w-full grayscale contrast-125">
+                <p class="typewriter text-center mt-6 text-gray-500 italic">Autora & Curadora, 2026</p>
+            </div>
+
+            <!-- Texto de Bio -->
+            <div class="bg-white p-8 torn-paper shadow-xl -rotate-2">
+                <h2 class="serif text-4xl mb-6 underline decoration-red-400">Quem segura a caneta?</h2>
+                <p class="typewriter text-sm leading-relaxed mb-6">
+                    Eu transito entre o silêncio da escrita e o caos do código. Minha missão não é te dar respostas prontas, mas te dar as ferramentas para você construir as suas. 
+                </p>
+                <p class="typewriter text-sm leading-relaxed">
+                    Foco em educar a próxima geração de desenvolvedores "aumentados" por IA e profissionais que não aceitam as regras impostas pelo sistema tradicional.
+                </p>
+                
+                <div class="mt-10 pt-6 border-t border-dashed border-gray-300">
+                    <h4 class="typewriter text-xs font-bold mb-4 uppercase">Canais de Transmissão:</h4>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#" class="bg-black text-white text-[10px] px-4 py-2 hover:bg-[#4da1a9]">INSTAGRAM</a>
+                        <a href="#" class="bg-black text-white text-[10px] px-4 py-2 hover:bg-[#4da1a9]">LINKEDIN</a>
+                        <a href="#" class="bg-black text-white text-[10px] px-4 py-2 hover:bg-[#4da1a9]">GITHUB</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
