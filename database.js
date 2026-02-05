@@ -1,3 +1,4 @@
+// BANCO DE DADOS DE E-BOOKS
 const EBOOKS_DATA = [
     { 
         id: 1, 
@@ -20,5 +21,17 @@ const EBOOKS_DATA = [
         link: "https://seulink.com",
         descricao: "Como hackear sua carreira e não depender de caminhos tradicionais. Um guia para quem quer liberdade.",
         preview: "Capítulo 1: O Grande Erro. <br><br> Nos ensinaram que o diploma era o fim, mas ele era apenas a primeira amarra..."
+    }
+];
+
+// BANCO DE DADOS DO DIÁRIO (BLOG)
+const POSTS_DATA = [
+    {
+        id: 1,
+        data: "05 Fev, 2026",
+        titulo: "Do TCC GoLand ao Growth Design",
+        resumo: "Como a experiência de criar uma plataforma de landing pages moldou meu critério visual.",
+        conteudo: "Escrever 90% do código do GoLand me ensinou que design sem técnica é apenas desenho, e técnica sem design é apenas ferramenta...",
+        rotation: 1
     }
 ];
