@@ -2,14 +2,14 @@
 const EBOOKS_DATA = [
     { 
         id: 1, 
-        titulo: "Front-End Pro 2026", 
+        titulo: "JavaScript Sem Trauma", 
         categoria: "Tecnologia", 
-        preco: "R$ 47,90", 
-        capa: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1000", 
+        preco: "R$ 20,00", 
+        capa: "assets/img/JavaScript_Sem_Trauma_Cover.png", 
         rotation: -3, 
         link: "https://seulink.com",
-        descricao: "O mapa completo para quem quer dominar Next.js e IA em 2026. Saia do básico e aprenda a construir produtos reais.",
-        preview: "Capítulo 1: O Código Vivo. <br><br> Em 2026, programar não é mais sobre sintaxe, é sobre diálogo com a máquina..."
+        descricao: "JavaScript Sem Trauma é um e-book feito para quem já tentou aprender JavaScript, mas se sentiu perdido, inseguro ou travou no meio do caminho.\n\nAqui você aprende o essencial do JavaScript com exemplos simples, explicações claras e projetos reais — sem linguagem acadêmica e sem promessas milagrosas.\n\nO objetivo não é te transformar em “gênio da programação”, mas te ajudar a entender JavaScript de verdade e dar seus primeiros passos como desenvolvedor front-end.",
+        preview: "Você Não Está Sozinho Nessa <br><br> Se você está aqui, provavelmente já... Respira fundo: isso é normal. <br><br> → Tentou aprender JavaScript e travou <br><br> → Se sentiu "burro" vendo outros entenderem rápido <br><br> → Abandonou cursos no meio por frustração <br><br> → Se perguntou se programação é realmente pra você <br><br> JavaScript assusta muita gente no começo. Não porque seja impossível, mas porque a maioria dos cur.."
     },
     { 
         id: 2, 
