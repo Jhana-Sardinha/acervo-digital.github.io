@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha Biblioteca Digital | Escritora & Mentora</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .serif { font-family: 'Playfair Display', serif; }
+        .page { display: none; }
+        .page.active { display: block; }
+        .tab-link.active { border-bottom: 2px solid #b49413; color: #b49413; }
+    </style>
+</head>
+<body class="bg-[#faf9f6] text-gray-800 antialiased">
+
+    <!-- NAVEGAÇÃO -->
+    <nav class="sticky top-0 z-50 bg-[#faf9f6]/90 backdrop-blur-md border-b border-gray-200">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold italic text-gray-900 serif">Sua Marca.</div>
+            <div class="space-x-8 flex">
+                <button onclick="showPage('home')" class="tab-link active font-medium transition duration-300">Início</button>
+                <button onclick="showPage('vitrine')" class="tab-link font-medium transition duration-300">E-books</button>
+                <button onclick="showPage('sobre')" class="tab-link font-medium transition duration-300">Sobre</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PÁGINA HOME -->
+    <main id="home" class="page active max-w-5xl mx-auto px-6 py-20">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h1 class="text-5xl md:text-6xl mb-6 leading-tight">Palavras que <span class="italic text-[#b49413]">transformam</span> realidades.</h1>
+                <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                    Bem-vindo ao meu espaço de curadoria literária. Aqui, transformo métodos complexos em guias práticos, 
+                    ajudando você a alcançar o próximo nível, seja na carreira tecnológica ou no desenvolvimento pessoal.
+                </p>
+                <button onclick="showPage('vitrine')" class="bg-gray-900 text-white px-8 py-3 rounded-full hover:bg-[#b49413] transition duration-300">
+                    Explorar Biblioteca
+                </button>
+            </div>
+            <div class="relative">
+                <div class="w-full h-[400px] bg-gray-200 rounded-2xl overflow-hidden shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80&w=1000" alt="Mesa de escrita" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- PÁGINA VITRINE -->
+    <section id="vitrine" class="page max-w-5xl mx-auto px-6 py-16">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl mb-4">Minhas Obras</h2>
+            <div class="flex justify-center space-x-4 mb-8">
+                <button onclick="filterBooks('todos')" class="px-4 py-1 text-sm border border-gray-300 rounded-full hover:border-[#b49413]">Todos</button>
+                <button onclick="filterBooks('tecnologia')" class="px-4 py-1 text-sm border border-gray-300 rounded-full hover:border-[#b49413]">Tecnologia</button>
+                <button onclick="filterBooks('carreira')" class="px-4 py-1 text-sm border border-gray-300 rounded-full hover:border-[#b49413]">Carreira</button>
+            </div>
+        </div>
+
+        <div id="grid-ebooks" class="grid md:grid-cols-3 gap-8">
+            <!-- Os cards dos e-books serão inseridos aqui via JavaScript -->
+        </div>
+    </section>
+
+    <!-- PÁGINA SOBRE -->
+    <section id="sobre" class="page max-w-5xl mx-auto px-6 py-20">
+        <div class="max-w-3xl mx-auto">
+            <h2 class="text-4xl mb-10 text-center">Sobre a Autora</h2>
+            <div class="flex flex-col md:flex-row gap-10 items-center mb-12">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=400" alt="Autora" class="w-48 h-48 rounded-full object-cover border-4 border-white shadow-lg">
+                <p class="text-lg text-gray-600 leading-relaxed">
+                    Olá, eu sou [Seu Nome]. Minha missão é democratizar o conhecimento técnico e estratégico. 
+                    Com anos de experiência no mercado, percebi que o que as pessoas mais precisam não é de 
+                    mais informação, mas de clareza e um caminho seguro para seguir.
+                </p>
+            </div>
+            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h3 class="text-2xl mb-4">Vamos nos conectar?</h3>
+                <p class="mb-6">Siga-me nas redes sociais para conteúdos diários e bastidores.</p>
+                <div class="flex space-x-6 text-2xl">
+                    <a href="#" class="text-gray-400 hover:text-[#b49413]">Instagram</a>
+                    <a href="#" class="text-gray-400 hover:text-[#b49413]">LinkedIn</a>
+                    <a href="#" class="text-gray-400 hover:text-[#b49413]">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL DE PREVIEW -->
+    <div id="modalPreview" class="fixed inset-0 bg-black/60 hidden flex items-center justify-center p-6 z-[100]">
+        <div class="bg-white max-w-2xl w-full max-h-[80vh] overflow-y-auto rounded-2xl p-8 relative">
+            <button onclick="closePreview()" class="absolute top-4 right-4 text-2xl">&times;</button>
+            <div id="previewContent">
+                <!-- Conteúdo do capítulo 1 aqui -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // BANCO DE DADOS DOS EBOOKS
+        const ebooks = [
+            {
+                id: 1,
+                titulo: "Front-End Pro 2026",
+                categoria: "tecnologia",
+                img: "https://via.placeholder.com/300x400/222/fff?text=Front-End+2026",
+                desc: "O guia definitivo para dominar React e IA.",
+                preco: "R$ 47,90",
+                preview: "<h2 class='serif text-3xl mb-4'>Capítulo 1: O Futuro é Aumentado</h2><p>Neste capítulo, exploramos como a IA mudou as regras do jogo para o desenvolvedor front-end...</p>",
+                link: "SEU_LINK_KIWIFY_OU_HOTMART"
+            },
+            {
+                id: 2,
+                titulo: "Equilíbrio Digital",
+                categoria: "carreira",
+                img: "https://via.placeholder.com/300x400/555/fff?text=Equilibrio+Digital",
+                desc: "Como manter a produtividade sem burnout.",
+                preco: "R$ 29,90",
+                preview: "<h2 class='serif text-3xl mb-4'>Capítulo 1: O Mito da Produtividade Infinita</h2><p>Todos nos dizem para produzir mais, mas ninguém ensina como descansar...</p>",
+                link: "SEU_LINK_KIWIFY_OU_HOTMART"
+            }
+        ];
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-link').forEach(l => l.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function renderBooks(filter = 'todos') {
+            const grid = document.getElementById('grid-ebooks');
+            grid.innerHTML = '';
+            
+            const filtered = filter === 'todos' ? ebooks : ebooks.filter(b => b.categoria === filter);
+
+            filtered.forEach(book => {
+                grid.innerHTML += `
+                    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-4 transition hover:shadow-xl group">
+                        <img src="${book.img}" class="w-full h-64 object-cover rounded-xl mb-4">
+                        <h3 class="text-xl serif mb-2">${book.titulo}</h3>
+                        <p class="text-sm text-gray-500 mb-4">${book.desc}</p>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-lg font-bold text-gray-900">${book.preco}</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 text-center">
+                            <button onclick="openPreview(${book.id})" class="text-xs border border-gray-200 py-2 rounded-lg hover:bg-gray-50">Degustação</button>
+                            <a href="${book.link}" target="_blank" class="text-xs bg-gray-900 text-white py-2 rounded-lg hover:bg-[#b49413] flex items-center justify-center">Comprar Agora</a>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterBooks(cat) {
+            renderBooks(cat);
+        }
+
+        function openPreview(id) {
+            const book = ebooks.find(b => b.id === id);
+            document.getElementById('previewContent').innerHTML = book.preview;
+            document.getElementById('modalPreview').classList.remove('hidden');
+        }
+
+        function closePreview() {
+            document.getElementById('modalPreview').classList.add('hidden');
+        }
+
+        // Inicializar
+        renderBooks();
+    </script>
+</body>
+</html>
