@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>body { background: #f3f4f6; padding: 50px; font-family: monospace; }</style>
+</head>
+<body x-data="{ 
+    newBook: { titulo: '', preco: '', categoria: 'Tecnologia', capa: '', link: '' },
+    result: ''
+}">
+    <div class="max-w-xl mx-auto bg-white p-10 shadow-lg border-2 border-dashed border-gray-400">
+        <h1 class="text-2xl mb-6">ADICIONAR NOVO E-BOOK</h1>
+        
+        <div class="space-y-4">
+            <input x-model="newBook.titulo" placeholder="Título" class="w-full border p-2">
+            <input x-model="newBook.preco" placeholder="Preço" class="w-full border p-2">
+            <input x-model="newBook.capa" placeholder="URL da Capa" class="w-full border p-2">
+            <input x-model="newBook.link" placeholder="Link de Venda" class="w-full border p-2">
+            
+            <button @click="
+                const id = Date.now();
+                const rotation = Math.floor(Math.random() * 10) - 5;
+                result = JSON.stringify({id, ...newBook, rotation}, null, 4) + ',';
+            " class="bg-black text-white w-full py-4">GERAR CÓDIGO</button>
+        </div>
+
+        <div x-show="result" class="mt-10">
+            <p class="text-red-500 font-bold mb-2">COPIE E COLE NO DATABASE.JS:</p>
+            <textarea x-text="result" class="w-full h-48 bg-gray-100 p-4 border text-xs"></textarea>
+        </div>
+        
+        <a href="index.html" class="block mt-10 text-center underline">Voltar ao site</a>
+    </div>
+</body>
+</html>
