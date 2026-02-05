@@ -2,37 +2,55 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Painel Admin</title>
+    <title>Painel da Escritora | Jhana</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <style>body { background: #f3f4f6; padding: 50px; font-family: monospace; }</style>
+    <style>
+        body { background: #f3f4f6; font-family: monospace; }
+        .tab-active { border-bottom: 4px solid #4da1a9; color: #4da1a9; }
+    </style>
 </head>
-<body x-data="{ 
-    newBook: { titulo: '', preco: '', categoria: 'Tecnologia', capa: '', link: '' },
-    result: ''
+<body x-data="{ tab: 'vitrine', result: '', 
+    book: { titulo: '', preco: '', categoria: 'Tecnologia', capa: '', link: '', descricao: '', preview: '' },
+    post: { titulo: '', data: '', resumo: '', conteudo: '' } 
 }">
-    <div class="max-w-xl mx-auto bg-white p-10 shadow-lg border-2 border-dashed border-gray-400">
-        <h1 class="text-2xl mb-6">ADICIONAR NOVO E-BOOK</h1>
+    <div class="max-w-3xl mx-auto my-10 bg-white p-10 shadow-2xl border-t-8 border-black">
+        <h1 class="text-3xl font-bold mb-8 uppercase italic">Central de Comando</h1>
         
-        <div class="space-y-4">
-            <input x-model="newBook.titulo" placeholder="Título" class="w-full border p-2">
-            <input x-model="newBook.preco" placeholder="Preço" class="w-full border p-2">
-            <input x-model="newBook.capa" placeholder="URL da Capa" class="w-full border p-2">
-            <input x-model="newBook.link" placeholder="Link de Venda" class="w-full border p-2">
-            
-            <button @click="
-                const id = Date.now();
-                const rotation = Math.floor(Math.random() * 10) - 5;
-                result = JSON.stringify({id, ...newBook, rotation}, null, 4) + ',';
-            " class="bg-black text-white w-full py-4">GERAR CÓDIGO</button>
+        <!-- ABAS -->
+        <div class="flex space-x-8 mb-10 border-b">
+            <button @click="tab = 'vitrine'; result = ''" :class="tab === 'vitrine' ? 'tab-active' : ''" class="pb-2 font-bold">VITRINE</button>
+            <button @click="tab = 'diario'; result = ''" :class="tab === 'diario' ? 'tab-active' : ''" class="pb-2 font-bold">DIÁRIO</button>
         </div>
 
-        <div x-show="result" class="mt-10">
-            <p class="text-red-500 font-bold mb-2">COPIE E COLE NO DATABASE.JS:</p>
-            <textarea x-text="result" class="w-full h-48 bg-gray-100 p-4 border text-xs"></textarea>
+        <!-- FORM VITRINE -->
+        <div x-show="tab === 'vitrine'" class="space-y-4">
+            <input x-model="book.titulo" placeholder="Título do E-book" class="w-full border p-3">
+            <div class="grid grid-cols-2 gap-4">
+                <input x-model="book.preco" placeholder="Preço (Ex: R$ 47,00)" class="border p-3">
+                <input x-model="book.capa" placeholder="URL da Imagem da Capa" class="border p-3">
+            </div>
+            <textarea x-model="book.descricao" placeholder="Descrição Curta" class="w-full border p-3 h-20"></textarea>
+            <textarea x-model="book.preview" placeholder="Degustação (Capítulo 1)" class="w-full border p-3 h-32"></textarea>
+            <button @click="const id = Date.now(); const rotation = Math.floor(Math.random() * 8) - 4; result = JSON.stringify({id, ...book, rotation}, null, 4) + ','" 
+                    class="bg-black text-white w-full py-4 font-bold hover:bg-[#4da1a9]">GERAR CÓDIGO DO E-BOOK</button>
         </div>
-        
-        <a href="index.html" class="block mt-10 text-center underline">Voltar ao site</a>
+
+        <!-- FORM DIÁRIO -->
+        <div x-show="tab === 'diario'" class="space-y-4">
+            <input x-model="post.titulo" placeholder="Título do Post" class="w-full border p-3">
+            <input x-model="post.data" placeholder="Data (Ex: 05 Fev, 2026)" class="w-full border p-3">
+            <textarea x-model="post.resumo" placeholder="Resumo que aparece na lista" class="w-full border p-3 h-20"></textarea>
+            <textarea x-model="post.conteudo" placeholder="Conteúdo completo do post" class="w-full border p-3 h-48"></textarea>
+            <button @click="const id = Date.now(); const rotation = Math.floor(Math.random() * 4) - 2; result = JSON.stringify({id, ...post, rotation}, null, 4) + ','" 
+                    class="bg-black text-white w-full py-4 font-bold hover:bg-[#4da1a9]">GERAR CÓDIGO DO POST</button>
+        </div>
+
+        <!-- RESULTADO -->
+        <div x-show="result" class="mt-10 p-6 bg-gray-100 border-l-4 border-red-500">
+            <p class="text-xs font-bold text-red-500 mb-2 uppercase">Copie e cole no database.js:</p>
+            <textarea x-text="result" class="w-full h-40 text-[10px] bg-white p-2 border" readonly></textarea>
+        </div>
     </div>
 </body>
 </html>
